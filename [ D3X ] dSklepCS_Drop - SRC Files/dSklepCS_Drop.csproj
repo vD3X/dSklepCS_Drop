@@ -9,7 +9,6 @@
   <ItemGroup>
     <PackageReference Include="CounterStrikeSharp.API" Version="1.0.263" />
     <PackageReference Include="Newtonsoft.JSON" Version="13.0.3" />
-    <PackageReference Include="PuppeteerSharp" Version="19.0.2" />
   </ItemGroup>
 
 </Project>
