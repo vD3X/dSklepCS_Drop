@@ -1,0 +1,9 @@
+{
+  "Settings": {
+    "Api_Key": "Klucz-Api",
+    "Server_Tag": "Tag-Serwera",
+    "Drop_PLN": 1,
+    "Chance_To_Win": 35.0,
+    "Time": 600.0
+  }
+}
