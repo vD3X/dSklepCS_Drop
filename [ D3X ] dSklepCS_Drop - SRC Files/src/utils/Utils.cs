@@ -46,36 +46,31 @@ public static class Utils
         {
             var content = new FormUrlEncodedContent(parameters);
             string queryString = await content.ReadAsStringAsync();
-            // Instance.Logger.LogInformation($"Wysyłanie żądania z treścią: {queryString}");
 
             var response = await Client.GetAsync($"https://sklepcs.pl/api.php?{queryString}");
             var responseContent = await response.Content.ReadAsStringAsync();
-
-            // Instance.Logger.LogInformation($"Odpowiedź API: {responseContent}");
 
             if (response.IsSuccessStatusCode && responseContent.Contains("ok"))
             {
                 string playerSaldo = await GetPlayerSaldo(player.SteamID.ToString());
                 
-                // Instance.Logger.LogInformation($"Gracz {playerName} wygrał {Config.config.Settings.Drop_PLN} wPLN.");
                 Server.NextFrame(() =>
                 {
-                    player.PrintToChat($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] Gratulacje! {ChatColors.Lime}Wygrałeś {ChatColors.DarkRed}{Config.config.Settings.Drop_PLN} {ChatColors.Lime}wPLN do sklepu!");
-                    player.PrintToChat($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] {ChatColors.Lime}Twoje aktualne saldo: {ChatColors.DarkRed}{playerSaldo} wPLN");
+                    player.PrintToChat($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] Gratulacje! {ChatColors.Lime}Wygrałeś {ChatColors.DarkRed}{Config.config.Settings.Drop_PLN} {ChatColors.Lime}{Config.config.Settings.Currency_Name} do sklepu!");
+                    player.PrintToChat($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] {ChatColors.Lime}Twoje aktualne saldo: {ChatColors.DarkRed}{playerSaldo} {Config.config.Settings.Currency_Name}");
                 });
             }
             else
             {
-                // Instance.Logger.LogWarning($"Błąd podczas dodawania wPLN. Odpowiedź serwera: {responseContent}");
                 Server.NextFrame(() =>
                 {
-                    player.PrintToChat($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] {ChatColors.LightRed}Wystąpił błąd podczas dodawania wPLN. Spróbuj ponownie później. (Zaloguj się do sklepu)");
+                    player.PrintToChat($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] {ChatColors.LightRed}Wystąpił błąd podczas dodawania {Config.config.Settings.Currency_Name}. Spróbuj ponownie później. (Zaloguj się do sklepu)");
                 });
             }
         }
         catch (Exception ex)
         {
-            Instance.Logger.LogError($"Błąd podczas wysyłania wPLN do gracza {playerName}: {ex.Message}");
+            Instance.Logger.LogError($"Błąd podczas wysyłania {Config.config.Settings.Currency_Name} do gracza {playerName}: {ex.Message}");
         }
     }
 
@@ -96,12 +91,8 @@ public static class Utils
             var content = new FormUrlEncodedContent(parameters);
             string queryString = await content.ReadAsStringAsync();
 
-            // Instance.Logger.LogInformation($"Wysyłanie żądania Saldo z treścią: {queryString}");
-
             var response = await Client.GetAsync($"https://sklepcs.pl/api_server_uslugi.php?{queryString}");
             var responseContent = await response.Content.ReadAsStringAsync();
-
-            // Instance.Logger.LogInformation($"Odpowiedź z API dla Saldo: {responseContent}");
 
             if (response.IsSuccessStatusCode && responseContent.Contains(";"))
             {

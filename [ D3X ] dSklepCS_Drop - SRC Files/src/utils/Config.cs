@@ -74,6 +74,8 @@ namespace dSklepCS_Drop
         {
             public string Api_Key { get; set; } = "Klucz-Api";
             public string Server_Tag { get; set; } = "Tag-Serwera";
+            public int MinPlayers { get; set; } = 2;
+            public string Currency_Name { get; set; } = "wPLN";
             public int Drop_PLN { get; set; } = 1;
             public float Chance_To_Win { get; set; } = 35.0f;
             public float Time { get; set; } = 600.0f;

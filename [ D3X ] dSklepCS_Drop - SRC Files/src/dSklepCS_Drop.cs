@@ -1,3 +1,4 @@
+using System.Drawing;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
@@ -21,20 +22,13 @@ public class dSklepCS_Drop : BasePlugin
         Instance = this;
         Config.Initialize();
 
-
-        // AddCommand("css_sklepcsdrop", "Dev command", (player, info) =>
-        // {
-        //     if (player == null) return;
-        //     Utils.SendWPLNToPlayer(player);
-        // });
-
         AddCommand("css_wpln", "show wPLN", async (player, info) =>
         {
             if (player == null) return;
 
             string playerSaldo = await Utils.GetPlayerSaldo(player.SteamID.ToString());
             
-            Server.NextFrame(() => player.PrintToChat($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] Twoje aktualne saldo: {ChatColors.DarkRed}{playerSaldo} wPLN"));
+            Server.NextFrame(() => player.PrintToChat($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] Twoje aktualne saldo: {ChatColors.DarkRed}{playerSaldo} {Config.config.Settings.Currency_Name}"));
         });
     }
 
@@ -47,7 +41,14 @@ public class dSklepCS_Drop : BasePlugin
 
         if (timeInSeconds > 0 && chance >= 0 && chance <= 1)
         {
-            Instance.AddTimer(timeInSeconds, () => Utils.RollForWPLN(chance), TimerFlags.REPEAT);
+            if (Utilities.GetPlayers().Count < Config.config.Settings.MinPlayers)
+            {
+                Instance.AddTimer(timeInSeconds, () => Utils.RollForWPLN(chance), TimerFlags.REPEAT);
+            }
+            else
+            {
+                Server.PrintToChatAll($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] {ChatColors.Lime}Jest za mało graczy na serwerze aby włączyć {ChatColors.LightRed}drop {ChatColors.Lime}{Config.config.Settings.Currency_Name}.");
+            }
         }
         else
         {

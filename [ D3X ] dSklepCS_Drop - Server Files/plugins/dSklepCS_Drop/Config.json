@@ -1,6 +1,8 @@
 {
   "Settings": {
     "Api_Key": "Klucz-Api",
+    "MinPlayers": 2,
+    "Currency_Name": "wPLN",
     "Server_Tag": "Tag-Serwera",
     "Drop_PLN": 1,
     "Chance_To_Win": 35.0,
