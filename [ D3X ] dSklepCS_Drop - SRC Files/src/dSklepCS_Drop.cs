@@ -11,7 +11,7 @@ public class dSklepCS_Drop : BasePlugin
     public override string ModuleName => "[CS2] D3X - [ dSklepCS Drop wPLN ]";
     public override string ModuleAuthor => "D3X";
     public override string ModuleDescription => "Plugin na możliwość dropu wPLN do sklepCS na serwery CS2 by D3X";
-    public override string ModuleVersion => "1.0.1";
+    public override string ModuleVersion => "1.0.2";
 
     public static dSklepCS_Drop Instance { get; set; } = new();
 
