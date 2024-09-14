@@ -13,7 +13,7 @@ public static class Utils
 
     public static void RollForWPLN(float chanceToWin)
     {
-        if (Utilities.GetPlayers().Count < Config.config.Settings.MinPlayers)
+        if (Utilities.GetPlayers().Count >= Config.config.Settings.MinPlayers)
         {
             foreach (var player in Utilities.GetPlayers().Where(p => p.Connected == PlayerConnectedState.PlayerConnected))
             {
