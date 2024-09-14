@@ -1,7 +1,5 @@
-using System.Drawing;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Timers;
 using CounterStrikeSharp.API.Modules.Utils;
 using Microsoft.Extensions.Logging;
@@ -41,14 +39,7 @@ public class dSklepCS_Drop : BasePlugin
 
         if (timeInSeconds > 0 && chance >= 0 && chance <= 1)
         {
-            if (Utilities.GetPlayers().Count < Config.config.Settings.MinPlayers)
-            {
-                Instance.AddTimer(timeInSeconds, () => Utils.RollForWPLN(chance), TimerFlags.REPEAT);
-            }
-            else
-            {
-                Server.PrintToChatAll($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] {ChatColors.Lime}Jest za mało graczy na serwerze aby włączyć {ChatColors.LightRed}drop {ChatColors.Lime}{Config.config.Settings.Currency_Name}.");
-            }
+            Instance.AddTimer(timeInSeconds, () => Utils.RollForWPLN(chance), TimerFlags.REPEAT);
         }
         else
         {

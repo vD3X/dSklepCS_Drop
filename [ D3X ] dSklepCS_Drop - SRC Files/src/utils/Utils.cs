@@ -13,12 +13,19 @@ public static class Utils
 
     public static void RollForWPLN(float chanceToWin)
     {
-        foreach (var player in Utilities.GetPlayers().Where(p => p.Connected == PlayerConnectedState.PlayerConnected))
+        if (Utilities.GetPlayers().Count < Config.config.Settings.MinPlayers)
         {
-            if (Random.NextDouble() <= chanceToWin)
+            foreach (var player in Utilities.GetPlayers().Where(p => p.Connected == PlayerConnectedState.PlayerConnected))
             {
-                _ = SendWPLNToPlayer(player);
+                if (Random.NextDouble() <= chanceToWin)
+                {
+                    _ = SendWPLNToPlayer(player);
+                }
             }
+        }
+        else
+        {
+            Server.PrintToChatAll($" {ChatColors.DarkRed}► {ChatColors.Green}[{ChatColors.DarkRed} DROP {ChatColors.Green}] {ChatColors.Lime}Jest za mało graczy na serwerze aby włączyć {ChatColors.LightRed}drop {ChatColors.Lime}{Config.config.Settings.Currency_Name}.");
         }
     }
 
